@@ -12,13 +12,13 @@ public class Main {
         obj1.motor = true;
         obj1.velocidade = 50;
 
-        obj1.exibe();
+        obj1.exibe(); //mostra: Fiat Uno
         obj1.desligar();
-        obj1.exibe();
+        obj1.exibe(); // motor desligado
         obj1.ligar();
         obj1.acelerar(60);
         obj1.frear(20);
-        obj1.exibe();
+        obj1.exibe(); // motor ligado, vel 40
 
         //comando de saida
 
