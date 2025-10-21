@@ -1,30 +1,51 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Produto;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
-@RequestMapping("/mensagem")
+@RequestMapping("/produto")
 
 // Classe vai responder pelos requisitos/mensagem
 public class ExemploController {
-
+    List<Produto> produtos = new ArrayList<Produto>();
 
     //verbo get
     @GetMapping
-    public String consulta(){
-        return "Este método faz um select no banco de dados";
+    public List<Produto> consulta(){
+        return produtos;
     }
 
-    @GetMapping("/{nome}/{sobrenome}")
-    public String consultaPersonalizada(@PathVariable String nome, @PathVariable String sobrenome){
-        return "Também faz select, agora com a cláusula where " + nome + " " + sobrenome;
+    @GetMapping("/{id}")
+    public Produto consultaPersonalizada(@PathVariable int id){
+        for (Produto produto : produtos) {
+            if (produto.getId() == id){
+                return produto;
+            }
+        }
+        // não encontrou
+        return null;
     }
 
     //verbo post
     @PostMapping
-    public String insere(){
-        return "Este método faz um insert no banco de dados";
+    public Produto insere(@RequestBody Produto produto){
+        produtos.add(produto);
+        return produto;
     }
 
-
+    // VERBO DELETE
+    @DeleteMapping("/{id}")
+    public boolean remover (@PathVariable int id){
+        for (Produto produto : produtos) {
+            if (produto.getId() == id){
+                return produtos.remove(produto);
+            }
+        }
+        // não encontrou
+        return false;
+    }
 }
